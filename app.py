@@ -11,5 +11,8 @@ def hello_world():
     soup = BeautifulSoup(src, 'html.parser')
     license = soup.findAll('p' ,attrs={"class" :"f2874b88 fw6 mb3 mt2 truncate black-80 f4"})[1].text
     #send msg in the telegram bot
-    requests.get("https://api.telegram.org/bot857617376:AAFktPZYQfRG60voVoWvPyO7eFKWUahmEKE/sendMessage?chat_id=478322885&text={}".format(License))
+    requests.get("https://api.telegram.org/bot857617376:AAF_rlduJrIP1iXfPDRj84ixm3JOzewjouw/sendMessage?chat_id=478322885&text={}".format(license))
     print('the data was sent!')
+    return
+    
+hello_world()
