@@ -26,8 +26,7 @@ def main():
  updates = updates["result"]                  
  message = updates["message"]["text"]
  uri = unshortener.unshorten(message)
- print(url)
  requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/sendMessage?chat_id=478322885&text={}".format(message))
-
+ return url
     
 main()
