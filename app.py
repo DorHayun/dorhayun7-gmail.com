@@ -1,8 +1,8 @@
 #from flask import Flask
 #from bs4 import BeautifulSoup
 #import requests
-from telegram.ext import Updater, Dispatcher, CommandHandler, MessageHandler
-from telegram import message, sticker, emoji, bot
+import requests
+from unshortenit import UnshortenIt
 
 app = Flask(__name__)
 
@@ -15,14 +15,19 @@ app = Flask(__name__)
     #send msg in the telegram bot
     #requests.get("https://api.telegram.org/bot857617376:AAF_rlduJrIP1iXfPDRj84ixm3JOzewjouw/sendMessage?chat_id=478322885&text={}".format(license))
     #return'the data was sent!'#
-    
-    
-def main():
-    updater = Updater(token='857617376:AAF_rlduJrIP1iXfPDRj84ixm3JOzewjouw')
+     
+   #get the url from user
 
-    dispatcher = updater.dispatcher
-    myBot = bot.Bot(token='857617376:AAF_rlduJrIP1iXfPDRj84ixm3JOzewjouw')
-    while True:
-        myBot.sendMessage(updtext='Hi')
-    updater.start_polling()
+def main():
+ unshortener = UnshortenIt() 
+
+ while True:
+ updates = requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/getUpdates")
+ updates = updates["result"]                  
+ message = updates["message"]["text"]
+ uri = unshortener.unshorten(message)
+ print(url)
+ requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/sendMessage?chat_id=478322885&text={}".format(message))
+
+    
 main()
