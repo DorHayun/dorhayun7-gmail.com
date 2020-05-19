@@ -2,7 +2,10 @@
 #from bs4 import BeautifulSoup
 #import requests
 import requests
+import json
+import unshortenit
 from unshortenit import UnshortenIt
+
 
 app = Flask(__name__)
 
@@ -20,13 +23,14 @@ app = Flask(__name__)
 
 def main():
  unshortener = UnshortenIt() 
-
+ offset = 193048867
  while True:
- updates = requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/getUpdates")
+ updates = requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/getUpdates?offset={}".format(offset+1))
+ updates = json.loads(updates.content)
  updates = updates["result"]                  
- message = updates["message"]["text"]
- uri = unshortener.unshorten(message)
+ message = updates[0]["message"]["text"]
+ message = unshortener.unshorten(message)
  requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/sendMessage?chat_id=478322885&text={}".format(message))
- return url
+ return message
     
 main()
