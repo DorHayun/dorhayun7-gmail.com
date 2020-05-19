@@ -23,14 +23,18 @@ app = Flask(__name__)
 
 def main():
  unshortener = UnshortenIt() 
- offset = 193048867
+ 
  while True:
- updates = requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/getUpdates?offset={}".format(offset+1))
- updates = json.loads(updates.content)
- updates = updates["result"]                  
- message = updates[0]["message"]["text"]
- message = unshortener.unshorten(message)
- requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/sendMessage?chat_id=478322885&text={}".format(message))
- return message
+ 
+  for item in updates:
+   offset = item["update_id"]
+   updates = requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/getUpdates?offset={}".format(offset))
+   offset = offset+1
+   updates = json.loads(updates.content)
+   updates = updates["result"]                  
+   message = item["message"]["text"]
+   message = unshortener.unshorten(message)
+   requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/sendMessage?chat_id=478322885&text={}".format(message))
+   return message
     
 main()
