@@ -21,7 +21,7 @@ def send_welcome(message):
     bot.reply_to(message, 'To use this bot, send it a bit.ly url!')
     
 
-@bot.message_handler(func=lambda message: True, content_types=['text'])
+@bot.message_handler(func=lambda msg: True, content_types=['text'])
 def command_default(message):
     unshortener = UnshortenIt()
     answer = unshortener.unshorten(message.text)
