@@ -20,16 +20,13 @@ def send_welcome(message):
 def send_welcome(message):
     bot.reply_to(message, 'To use this bot, send it a bit.lu url!')
     
-@bot.message_handler(func=lambda msg: msg.text is not None)
-def send_answer(message):
-    
     
 @bot.message_handler(func=lambda msg: 'bit.ly' in message.text )
 def command_text_hi(message):
     unshortener = UnshortenIt()
     answer = unshortener.unshorten(message.text)
     requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/sendMessage?chat_id=478322885&text={}".format(answer))
-
+    return answer
     
 while True:
     try:
