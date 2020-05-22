@@ -6,7 +6,7 @@ import unshortenit
 from unshortenit import UnshortenIt
 
 app = Flask(__name__)
-bot_token = '857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0'
+bot_token = '857617376:AAF0r5jo-pJV50MXzw--x-42ueDTz5MRpX4'
 bot = telebot.TeleBot(token=bot_token)
 @app.route('/')
 
