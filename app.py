@@ -12,8 +12,8 @@ bot = telebot.TeleBot(token=bot_token)
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.reply_to(message, 'Welcome')
-    bot.send_message("Hello, stranger, let me scan you...")
+    bot.reply_to(message, 'Welcome, please enter bit.ly url')
+
     
     
 @bot.message_handler(commands=['help'])
@@ -22,10 +22,13 @@ def send_welcome(message):
     
 @bot.message_handler(func=lambda msg: msg.text is not None)
 def send_answer(message):
-    unshortener = UnshortenIt()
-    message = unshortener.unshorten(msg.text)
-    requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/sendMessage?chat_id=478322885&text={}".format(message))
     
+    
+@bot.message_handler(func=lambda msg: 'bit.ly' in message.text )
+def command_text_hi(message):
+    unshortener = UnshortenIt()
+    answer = unshortener.unshorten(message.text)
+    requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/sendMessage?chat_id=478322885&text={}".format(answer))
 
     
 while True:
