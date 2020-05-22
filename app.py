@@ -13,6 +13,8 @@ bot = telebot.TeleBot(token=bot_token)
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.reply_to(message, 'Welcome')
+    bot.send_message("Hello, stranger, let me scan you...")
+    
     
 @bot.message_handler(commands=['help'])
 def send_welcome(message):
@@ -23,6 +25,8 @@ def send_answer(message):
     unshortener = UnshortenIt()
     message = unshortener.unshorten(msg.text)
     requests.get("https://api.telegram.org/bot857617376:AAFX-IATq2rEKPsKcW7ylkhe_pA7jOZZeK0/sendMessage?chat_id=478322885&text={}".format(message))
+    
+
     
 while True:
     try:
